@@ -123,7 +123,6 @@ public class PaymentOrderService {
                     mWorkOrderServiceClient.updateWorkOrderState(WO);
                 }
 
-
                 return saved;
 
             } catch (Exception e) {

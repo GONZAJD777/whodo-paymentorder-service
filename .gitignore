@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/src/main/resources/whodo_paymentorder_serv_cert.p12
+/whodo_paymentorder_serv_cert.pem
