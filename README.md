@@ -20,7 +20,7 @@ El diseño de este microservicio prioriza la integridad de los datos, la segurid
 *   **Integraciones Externas:** SDK Oficial de MercadoPago.
 *   **Herramientas de Red:** ngrok (Túneles de red seguros y exposición de puertos).
 
-## ⚙️ Características Técnicas Principales (Foco Líder Técnico)
+## ⚙️ Características Técnicas Principales 
 
 1.  **Orquestación de Checkout Seguro:** Implementa el flujo de pagos procesando de forma segura los identificadores de preferencia (*Preference ID*), garantizando contratos limpios de datos hacia el cliente móvil Android.
 2.  **Manejo Resiliente de Payloads Externos:** Estructura parsers dinámicos para validar, limpiar e interpretar los payloads entrantes de MercadoPago, gestionando reintentos lógicos y protegiendo al backend contra inconsistencias de red.
