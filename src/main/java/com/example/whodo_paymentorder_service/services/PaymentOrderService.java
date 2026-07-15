@@ -7,16 +7,17 @@ import com.example.whodo_paymentorder_service.models.DateUtcOffset;
 import com.example.whodo_paymentorder_service.models.PaymentOrder;
 import com.example.whodo_paymentorder_service.models.WorkOrder;
 import com.example.whodo_paymentorder_service.repositories.PaymentOrderRepository;
+import com.mercadopago.resources.merchantorder.MerchantOrder;
+import com.mercadopago.resources.merchantorder.MerchantOrderPayment;
+import com.mercadopago.resources.payment.Payment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PaymentOrderService {
@@ -24,7 +25,6 @@ public class PaymentOrderService {
     private final PaymentOrderRepository repository;
     private final WorkOrderServiceClient mWorkOrderServiceClient;
     private static final Logger log = LoggerFactory.getLogger(PaymentOrderService.class);
-
 
     public PaymentOrderService(PaymentOrderRepository repository, WorkOrderServiceClient mWorkOrderServiceClient) {
         this.repository = repository;
@@ -130,6 +130,18 @@ public class PaymentOrderService {
                 log.error("Error al reconciliar PaymentOrder con id {}: {}", id, e.getMessage(), e);
                 return null;
             }
+        });
+    }
+
+    // Cerrar PaymentOrder
+    public Optional<PaymentOrder> closePaymentOrder(String paymentOrderId) {
+        return repository.findById(paymentOrderId).map(order -> {
+            if(Objects.equals(order.getReason(), Constants.INSPECTION_PAYMENT))
+                order.setState(Constants.INSPECTION_REJECTED);
+            else if(Objects.equals(order.getReason(), Constants.WORK_PAYMENT))
+                order.setState(Constants.WORK_REJECTED);
+            order.setLastUpdated(new DateUtcOffset(OffsetDateTime.now().toString()));
+            return repository.save(order);
         });
     }
 

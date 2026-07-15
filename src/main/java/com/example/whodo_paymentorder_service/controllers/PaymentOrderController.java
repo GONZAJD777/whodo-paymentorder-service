@@ -33,12 +33,20 @@ public class PaymentOrderController {
     }
 
     // Actualizar PaymentOrder
-    @PutMapping("/{id}")
+    @PutMapping("/updatePaymentOrder")
     public ResponseEntity<PaymentOrder> update(@RequestBody PaymentOrder updated) {
         Optional<PaymentOrder> order = service.updatePaymentOrder(updated);
         return order.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+    // Cerrar PaymentOrder
+    @PostMapping("/closePaymentOrder/{id}")
+    public ResponseEntity<PaymentOrder> close(@PathVariable("id") String paymentOrderId) {
+        Optional<PaymentOrder> order = service.closePaymentOrder(paymentOrderId);
+        return order.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 
     // Reconciliar estado de PaymentOrder
     @PostMapping("/{id}/reconcile")

@@ -1,0 +1,18 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{HH:mm:ss.SSS} %highlight(%-5level) %cyan(%logger{36}) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Solo tu paquete en DEBUG -->
+    <logger name="com.example.whodo_paymentorder_service" level="DEBUG"/>
+
+    <!-- Spring y librerías externas en ERROR -->
+    <logger name="org.springframework" level="ERROR"/>
+    <logger name="com.fasterxml.jackson" level="ERROR"/>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

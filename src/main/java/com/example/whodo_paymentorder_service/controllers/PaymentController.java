@@ -25,4 +25,13 @@ public class PaymentController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", e.getMessage()));
         }
     }
+    @PostMapping("/cancelPayment")
+    public ResponseEntity<Map<String, String>> deletePayment(@RequestParam String paymentId ,@RequestParam String paymentProvider ) {
+        try {
+            paymentService.deletePayment(paymentProvider, paymentId);
+            return ResponseEntity.ok(Map.of("status", "Payment cancelled successfully"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", e.getMessage()));
+        }
+    }
 }

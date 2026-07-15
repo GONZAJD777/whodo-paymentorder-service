@@ -48,4 +48,14 @@ public class MercadoPagoClient {
                 .retrieve()
                 .toEntity(String.class);
     }
+
+    public ResponseEntity<String> cancelPayment(String accessToken, String paymentURL) {
+        return restClient.post()
+                .uri("/v1/payments/" + paymentURL +"/cancel")
+                .header(HEADER_KEY_AUTHORIZATION, "Bearer " + accessToken)
+                .header("Content-Type", "application/json")
+                .retrieve()
+                .toEntity(String.class);
+    }
+
 }

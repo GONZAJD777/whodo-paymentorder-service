@@ -26,10 +26,12 @@ public class Constants {
     /// Payment States
     public static final String CREATED = "CREATED";
     public static final String PENDING = "PENDING";
-    public static final String APPROVED = "APPROVED";
     public static final String CLOSED_APPROVED = "CLOSED_APPROVED";
     public static final String CLOSED_REJECTED = "CLOSED_REJECTED";
     public static final String CLOSED_REFUNDED = "CLOSED_REFUNDED";
+    public static final String INSPECTION_REJECTED = "WORK_PAYMENT_REJECT_BY_CUSTOMER";
+    public static final String WORK_REJECTED = "INSPECTION_PAYMENT_REJECTED_BY_CUSTOMER";
+
 
     /// WorkOrder States
     public static final String OPEN="OPEN";

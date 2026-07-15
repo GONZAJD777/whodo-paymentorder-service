@@ -74,6 +74,17 @@ public class MercadoPagoBridgeImpl implements PaymentBridge {
         }
     }
     @Override
+    public void deletePayment(String paymentURL) {
+        try {
+            mercadoPagoClient.cancelPayment(paymentURL, mercadoPagoAccessToken);
+            log.error( "Preferencia  cancelada correctamente: {}", paymentURL);
+        } catch (Exception e) {
+            log.error("Error inesperado al cancelar la preferencia", e);
+            throw new RuntimeException("Error inesperado al cancelar la preferencia", e);
+        }
+    }
+
+    @Override
     public String validateMerchantOrder(String orderId) {
         try {
             log.info("*************** Iniciando validacion de Merchant Order {} ***************", orderId);
@@ -86,18 +97,6 @@ public class MercadoPagoBridgeImpl implements PaymentBridge {
                 String status = json.get("status").asText();
                 log.info("Merchant Order {} estado: {}", orderId, status);
                 log.info("Merchant Order {} : ", merchantOrderJson);
-
-//                JsonNode payments = json.get("payments");
-//                if (payments != null && payments.isArray()) {
-//                    for (JsonNode payment : payments) {
-//                        String paymentId = payment.get("id").asText();
-//                        String paymentStatus = payment.get("status").asText();
-//                        log.info("Pago {} con estado {}", paymentId, paymentStatus);
-//
-//                        // Acá podés actualizar tu DB con el estado de cada pago
-//                        // Ejemplo: marcar orden como pagada si alguno está approved
-//                    }
-//                }
 
                 return merchantOrderJson;
             } else {
